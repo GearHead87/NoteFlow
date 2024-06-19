@@ -116,7 +116,7 @@ const NotePage = () => {
 			<div className="grid grid-cols-3 gap-4">
 				<NoteAddForm />
 				{notes.map((note) => (
-					<NoteCard note={note} />
+					<NoteCard key={note.id} note={note} />
 				))}
 			</div>
 		</div>
