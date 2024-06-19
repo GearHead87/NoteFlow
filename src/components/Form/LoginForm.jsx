@@ -14,6 +14,8 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
 	email: z.string().email({
@@ -33,6 +35,10 @@ const LoginForm = () => {
 			password: "",
 		},
 	});
+
+	// Initialize useRouter
+	const router = useRouter();
+
 	// 2. Define a submit handler.
 	const onSubmit = async (values) => {
 		// Do something with the form values.
@@ -41,8 +47,33 @@ const LoginForm = () => {
 		const res = await signIn("credentials", {
 			email: values.email,
 			password: values.password,
+			redirect: false,
 		});
-        console.log(res);
+		console.log(res);
+
+		// Handle sign-in response
+		if (res?.error) {
+			// Show error notification
+			toast(res.error, {
+				icon: "❌",
+				style: {
+					borderRadius: "10px",
+					background: "#333",
+					color: "#fff",
+				},
+			});
+		} else {
+			// Show success notification and redirect to homepage
+			toast("Login successful!", {
+				icon: "✅",
+				style: {
+					borderRadius: "10px",
+					background: "#333",
+					color: "#fff",
+				},
+			});
+			router.push("/"); // Redirect to homepage
+		}
 	};
 	return (
 		<div>
