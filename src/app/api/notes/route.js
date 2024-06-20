@@ -25,6 +25,36 @@ export const POST = async (request) => {
 	}
 };
 
+export const PATCH = async (request) => {
+	const { searchParams } = new URL(request.url);
+	const id = searchParams.get("id");
+	const noteData = await request.json();
+	const newNoteData = {
+		...noteData,
+		updatedAt: new Date(),
+	};
+	console.log(id, newNoteData);
+	try {
+		const db = await connectDB();
+		const notesCollection = db.collection("notes");
+		const query = {
+			_id: new ObjectId(id),
+		};
+		const updateDoc = {
+			$set: {
+				...newNoteData,
+			},
+		};
+		const result = await notesCollection.updateOne(query, updateDoc);
+		return NextResponse.json({ message: "Notes Updated", result });
+	} catch (error) {
+		return NextResponse.json(
+			{ message: "Something Went Wrong", error },
+			{ status: 500 }
+		);
+	}
+};
+
 export const DELETE = async (request) => {
 	const { searchParams } = new URL(request.url);
 	const id = searchParams.get("id");

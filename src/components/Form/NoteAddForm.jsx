@@ -91,11 +91,11 @@ const NoteAddForm = ({ refetch }) => {
 					<CardHeader>
 						<CardTitle>
 							<Label htmlFor="Title">Title</Label>
-							<Input {...register("title")} />
+							<Input {...register("title")} required />
 						</CardTitle>
 						<CardDescription>
 							<Label htmlFor="Description">Description</Label>
-							<Input {...register("description")} />
+							<Input {...register("description")} required />
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -103,6 +103,7 @@ const NoteAddForm = ({ refetch }) => {
 							rows="10"
 							placeholder="Type your notes here."
 							{...register("content")}
+							required
 						/>
 					</CardContent>
 					<CardFooter className="flex items-center justify-between">
@@ -117,6 +118,7 @@ const NoteAddForm = ({ refetch }) => {
 								value={selectedTags}
 								onChange={handleTagsChange}
 								placeholder="Select Tags"
+								required
 							/>
 						</div>
 						<div className="flex text-3xl">
