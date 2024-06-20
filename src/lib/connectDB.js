@@ -11,9 +11,12 @@ export const connectDB = async () => {
 				deprecationErrors: true,
 			},
 		});
+		await client.connect();
 		db = client.db("NoteFlowDB");
+		console.log("Successfully connected to MongoDB");
 		return db;
 	} catch (error) {
+		console.error("Failed to connect to the database", error);
 		console.log({ error });
 	}
 };

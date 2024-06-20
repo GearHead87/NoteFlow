@@ -2,11 +2,15 @@ import { connectDB } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
 export const GET = async (request, { params }) => {
-    console.log(params);
+	const { email } = params;
 	try {
 		const db = await connectDB();
 		const notesCollection = db.collection("notes");
-		const notes = await notesCollection.find({ author: params.email }).toArray();
+		const query = {
+			author: email,
+		};
+		const notes = await notesCollection.find(query).toArray();
+		console.log(notes);
 		return NextResponse.json({ notes });
 	} catch (error) {
 		return NextResponse.json(

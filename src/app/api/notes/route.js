@@ -23,7 +23,3 @@ export const POST = async (request) => {
 		);
 	}
 };
-
-export const GET = async (request) => {
-	return NextResponse.json({ message: "note routes" });
-};

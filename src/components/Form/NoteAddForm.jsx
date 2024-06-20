@@ -34,7 +34,7 @@ const options = [
 	{ value: "other", label: "Other" },
 ];
 
-const NoteAddForm = () => {
+const NoteAddForm = ({ refetch }) => {
 	const [selectedTags, setSelectedTags] = useState([]);
 	const { data: currentUser, status } = useSession();
 	const handleTagsChange = (selectedOptions) => {
@@ -68,6 +68,7 @@ const NoteAddForm = () => {
 					color: "#fff",
 				},
 			});
+			refetch();
 			reset();
 			setSelectedTags([]);
 		} catch (error) {
