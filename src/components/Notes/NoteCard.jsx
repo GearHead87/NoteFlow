@@ -10,8 +10,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { MdOutlineMode, MdDeleteForever } from "react-icons/md";
 
-const NoteCard = ({ note }) => {
+const NoteCard = ({ note, handleDelete }) => {
 	const {
+		_id,
 		title,
 		description,
 		tags,
@@ -43,7 +44,9 @@ const NoteCard = ({ note }) => {
 					</div>
 					<div className="flex text-3xl">
 						<MdOutlineMode className="text-blue-400 hover:bg-slate-600 rounded-lg mr-4" />
-						<MdDeleteForever className="text-red-400 hover:bg-slate-600 rounded-lg" />
+						<button onClick={() => handleDelete(_id)}>
+							<MdDeleteForever className="text-red-400 hover:bg-slate-600 rounded-lg" />
+						</button>
 					</div>
 				</CardFooter>
 			</Card>

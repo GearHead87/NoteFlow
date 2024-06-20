@@ -10,7 +10,6 @@ export const GET = async (request, { params }) => {
 			author: email,
 		};
 		const notes = await notesCollection.find(query).toArray();
-		console.log(notes);
 		return NextResponse.json({ notes });
 	} catch (error) {
 		return NextResponse.json(
@@ -19,3 +18,5 @@ export const GET = async (request, { params }) => {
 		);
 	}
 };
+
+
