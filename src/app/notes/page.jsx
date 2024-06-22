@@ -32,7 +32,7 @@ const NotePage = () => {
 	return (
 		<div className="container">
 			<h2 className="text-3xl text-center my-10">Your Notes</h2>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 drama-slate-800 drama-10">
 				<NoteAddForm refetch={refetch} />
 				{notes.map((note) => (
 					<NoteCard

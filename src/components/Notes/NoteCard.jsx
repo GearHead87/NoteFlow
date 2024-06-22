@@ -12,6 +12,7 @@ import { MdOutlineMode, MdDeleteForever } from "react-icons/md";
 import NoteEditForm from "../Form/NoteEditForm";
 import { DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { Meteors } from "../ui/meteors";
 
 const NoteCard = ({ note, handleDelete, refetch }) => {
 	const {
@@ -26,23 +27,24 @@ const NoteCard = ({ note, handleDelete, refetch }) => {
 		content,
 	} = note;
 	return (
-		<div className="max-w-sm">
-			<Card className="bg-slate-800">
-				<CardHeader>
+		<div className="relative max-w-sm w-full">
+			<Card className="bg-slate-800 relative overflow-hidden ">
+				<Meteors number={20} className="absolute inset-0 z-0" />
+				<CardHeader className="relative z-10">
 					<CardTitle>{title}</CardTitle>
 					<CardDescription>{description}</CardDescription>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="relative z-10">
 					<Textarea
 						value={content}
 						rows="10"
 						placeholder="Type your message here."
 					/>
 				</CardContent>
-				<CardFooter className="flex items-center justify-between">
+				<CardFooter className="relative z-10 flex items-center justify-between">
 					<div className="space-x-4">
-						{tags.map((tag) => (
-							<Badge className={""}>{tag}</Badge>
+						{tags.map((tag, index) => (
+							<Badge key={index}>{tag}</Badge>
 						))}
 					</div>
 					<div className="flex text-3xl">

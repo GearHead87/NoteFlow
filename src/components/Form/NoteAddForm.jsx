@@ -24,6 +24,7 @@ import { useForm } from "react-hook-form";
 import useAxiosCommon from "@/hooks/useAxiosCommon";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import { Meteors } from "../ui/meteors";
 
 const options = [
 	{ value: "work", label: "Work" },
@@ -85,10 +86,11 @@ const NoteAddForm = ({ refetch }) => {
 	};
 
 	return (
-		<div className="max-w-sm">
-			<Card className="bg-slate-800">
+		<div className="relative max-w-sm w-full">
+			<Card className="bg-slate-800 relative overflow-hidden">
+				<Meteors number={20} className="absolute inset-0 z-0" />
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<CardHeader>
+					<CardHeader className="relative z-10">
 						<CardTitle>
 							<Label htmlFor="Title">Title</Label>
 							<Input {...register("title")} required />
@@ -98,7 +100,7 @@ const NoteAddForm = ({ refetch }) => {
 							<Input {...register("description")} required />
 						</CardDescription>
 					</CardHeader>
-					<CardContent>
+					<CardContent className="relative z-10">
 						<Textarea
 							rows="10"
 							placeholder="Type your notes here."
@@ -106,7 +108,7 @@ const NoteAddForm = ({ refetch }) => {
 							required
 						/>
 					</CardContent>
-					<CardFooter className="flex items-center justify-between">
+					<CardFooter className="relative z-10 flex items-center justify-between">
 						<div className="space-x-4 w-full">
 							{/* Add select field for tags */}
 							<CreatableSelect

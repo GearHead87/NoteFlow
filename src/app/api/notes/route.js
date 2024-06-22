@@ -33,7 +33,7 @@ export const PATCH = async (request) => {
 		...noteData,
 		updatedAt: new Date(),
 	};
-	console.log(id, newNoteData);
+	// console.log(id, newNoteData);
 	try {
 		const db = await connectDB();
 		const notesCollection = db.collection("notes");
