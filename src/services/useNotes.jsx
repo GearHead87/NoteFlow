@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosCommon from "@/hooks/useAxiosCommon";
 
-const getNotes = (email) => {
+const useNotes = (email) => {
 	const axiosCommon = useAxiosCommon();
 
 	const { data: notes, isLoading, refetch } = useQuery({
@@ -17,4 +17,4 @@ const getNotes = (email) => {
 	return { notes, isLoading, refetch };
 };
 
-export default getNotes;
+export default useNotes;

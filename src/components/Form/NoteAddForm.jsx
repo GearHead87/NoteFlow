@@ -121,6 +121,14 @@ const NoteAddForm = ({ refetch }) => {
 								onChange={handleTagsChange}
 								placeholder="Select Tags"
 								required
+								menuPortalTarget={document.body} // Render menu in a separate DOM node
+								styles={{
+									menuPortal: (base) => ({
+										...base,
+										color: "black",
+										zIndex: 9999,
+									}),
+								}} // Ensure it is above other elements
 							/>
 						</div>
 						<div className="flex text-3xl">

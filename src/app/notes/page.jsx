@@ -2,15 +2,15 @@
 import NoteAddForm from "@/components/Form/NoteAddForm";
 import NoteCard from "@/components/Notes/NoteCard";
 import useAxiosCommon from "@/hooks/useAxiosCommon";
-import getNotes from "@/services/getNotes";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import Loading from "../loading";
+import useNotes from "@/services/useNotes";
 
 const NotePage = () => {
 	const { data: session, status: sessionStatus } = useSession();
 	const axiosCommon = useAxiosCommon();
-	const { notes, isLoading, refetch } = getNotes(session?.user?.email);
+	const { notes, isLoading, refetch } = useNotes(session?.user?.email);
 
 	const handleDelete = async (id) => {
 		const { data } = await axiosCommon.delete(`api/notes?id=${id}`);

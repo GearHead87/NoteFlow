@@ -39,7 +39,7 @@ const NoteEditForm = ({ note, refetch }) => {
 			value: tag,
 		}));
 		setSelectedTags(currentSelectedTags);
-	}, [note.tag]);
+	}, [note.tags]);
 	const axiosCommon = useAxiosCommon();
 	const {
 		register,

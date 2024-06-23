@@ -10,14 +10,14 @@ export const POST = async (request) => {
 		updatedAt: new Date(),
 		status: "active",
 	};
-	console.log(newNoteData);
+	// console.log(newNoteData);
 	try {
 		const db = await connectDB();
 		const notesCollection = db.collection("notes");
 		const result = await notesCollection.insertOne(noteData);
 		return NextResponse.json({ message: "Note Saved" }, { status: 201 });
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		return NextResponse.json(
 			{ message: "Something Went Wrong", error },
 			{ status: 500 }
@@ -58,7 +58,7 @@ export const PATCH = async (request) => {
 export const DELETE = async (request) => {
 	const { searchParams } = new URL(request.url);
 	const id = searchParams.get("id");
-	console.log(id);
+	// console.log(id);
 	try {
 		const db = await connectDB();
 		const notesCollection = db.collection("notes");
