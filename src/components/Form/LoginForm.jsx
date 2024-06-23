@@ -14,7 +14,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
@@ -38,6 +38,8 @@ const LoginForm = () => {
 
 	// Initialize useRouter
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const path = searchParams.get("redirect");
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values) => {
@@ -47,7 +49,8 @@ const LoginForm = () => {
 		const res = await signIn("credentials", {
 			email: values.email,
 			password: values.password,
-			redirect: false,
+			redirect: true,
+			callbackUrl: path ? path : "/",
 		});
 		console.log(res);
 
@@ -72,7 +75,7 @@ const LoginForm = () => {
 					color: "#fff",
 				},
 			});
-			router.push("/"); // Redirect to homepage
+			// router.push("/"); // Redirect to homepage
 		}
 	};
 	return (
