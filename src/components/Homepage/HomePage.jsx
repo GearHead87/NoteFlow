@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import { AuroraBackgroundDemo } from "./Hero";
 
 const HomePage = () => {
-    return (
-        <div>
-            Home Page
-        </div>
-    );
+	return (
+		<div>
+			<AuroraBackgroundDemo />
+		</div>
+	);
 };
 
 export default HomePage;

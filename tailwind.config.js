@@ -1,3 +1,7 @@
+const {
+	default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ["class"],
@@ -7,7 +11,6 @@ module.exports = {
 		"./app/**/*.{js,jsx}",
 		"./src/**/*.{js,jsx}",
 	],
-	prefix: "",
 	theme: {
 		container: {
 			center: true,
@@ -74,13 +77,34 @@ module.exports = {
 						opacity: "0",
 					},
 				},
+				aurora: {
+					from: {
+						backgroundPosition: "50% 50%, 50% 50%",
+					},
+					to: {
+						backgroundPosition: "350% 50%, 350% 50%",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				"meteor-effect": "meteor 5s linear infinite",
+				aurora: "aurora 60s linear infinite",
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate"), require("twglow")],
+	plugins: [require("tailwindcss-animate"), addVariablesForColors],
 };
+
+// Custom plugin to add CSS variables for each Tailwind color
+function addVariablesForColors({ addBase, theme }) {
+	const colors = flattenColorPalette(theme("colors"));
+	const cssVariables = Object.fromEntries(
+		Object.entries(colors).map(([key, value]) => [`--${key}`, value])
+	);
+
+	addBase({
+		":root": cssVariables,
+	});
+}
