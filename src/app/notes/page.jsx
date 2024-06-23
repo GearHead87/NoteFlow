@@ -5,6 +5,7 @@ import useAxiosCommon from "@/hooks/useAxiosCommon";
 import getNotes from "@/services/getNotes";
 import { useSession } from "next-auth/react";
 import toast from "react-hot-toast";
+import Loading from "../loading";
 
 const NotePage = () => {
 	const { data: session, status: sessionStatus } = useSession();
@@ -26,7 +27,7 @@ const NotePage = () => {
 	};
 
 	if (sessionStatus === "loading" || isLoading) {
-		return <h2>Loading...</h2>;
+		return <Loading />;
 	}
 
 	return (
