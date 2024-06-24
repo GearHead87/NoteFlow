@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import useAxiosCommon from "@/hooks/useAxiosCommon";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "../ui/loadingSpinner";
+import { useState } from "react";
 
 const formSchema = z.object({
 	email: z.string().email({
@@ -32,7 +34,8 @@ const formSchema = z.object({
 
 const SignupForm = () => {
 	const axiosCommon = useAxiosCommon();
-    const router = useRouter(); // Initialize useRouter
+	const router = useRouter(); // Initialize useRouter
+	const [loading, setLoading] = useState(false);
 	// 1. Define your form.
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -44,6 +47,7 @@ const SignupForm = () => {
 	});
 	// 2. Define a submit handler.
 	const onSubmit = async (values) => {
+		setLoading(true);
 		try {
 			// Do something with the form values.
 			// ✅ This will be type-safe and validated.
@@ -64,12 +68,13 @@ const SignupForm = () => {
 					color: "#fff",
 				},
 			});
-
+			setLoading(false);
 			// Redirecting to the callback URL
 			if (status === 201) {
 				router.push(data.redirectUrl);
 			}
 		} catch (error) {
+			setLoading(false);
 			const errorMessage =
 				error.response?.data?.message || "Something went wrong!";
 			toast(`${errorMessage}`, {
@@ -129,7 +134,19 @@ const SignupForm = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Submit</Button>
+					{loading ? (
+						<>
+							<Button className="font-semibold opacity-60">
+								<LoadingSpinner color="black" /> Processing...
+							</Button>
+						</>
+					) : (
+						<>
+							<Button type="submit" disable className="font-semibold">
+								Sign Up
+							</Button>
+						</>
+					)}
 				</form>
 			</Form>
 		</div>

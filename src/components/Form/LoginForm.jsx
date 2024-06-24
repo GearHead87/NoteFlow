@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import LoadingSpinner from "../ui/loadingSpinner";
 
 const formSchema = z.object({
 	email: z.string().email({
@@ -27,6 +29,7 @@ const formSchema = z.object({
 });
 
 const LoginForm = () => {
+	const [loading, setLoading] = useState(false);
 	// 1. Define your form.
 	const form = useForm({
 		resolver: zodResolver(formSchema),
@@ -43,6 +46,7 @@ const LoginForm = () => {
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values) => {
+		setLoading(true);
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 		console.log(values);
@@ -55,7 +59,8 @@ const LoginForm = () => {
 		console.log(res);
 
 		// Handle sign-in response
-		if (res?.error) {
+		if (!res?.ok) {
+			setLoading(false);
 			// Show error notification
 			toast(res.error, {
 				icon: "❌",
@@ -66,6 +71,7 @@ const LoginForm = () => {
 				},
 			});
 		} else {
+			setLoading(false);
 			// Show success notification and redirect to homepage
 			toast("Login successful!", {
 				icon: "✅",
@@ -112,7 +118,19 @@ const LoginForm = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Submit</Button>
+					{loading ? (
+						<>
+							<Button className="font-semibold opacity-60">
+								<LoadingSpinner color="black" /> Processing...
+							</Button>
+						</>
+					) : (
+						<>
+							<Button type="submit" disable className="font-semibold">
+								Login
+							</Button>
+						</>
+					)}
 				</form>
 			</Form>
 		</div>
